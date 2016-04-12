@@ -21,7 +21,6 @@ public class ContactInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_info);
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String name = bundle.getString("name");

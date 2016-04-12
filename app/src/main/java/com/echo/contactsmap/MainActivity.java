@@ -3,6 +3,10 @@ package com.echo.contactsmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +34,32 @@ public class MainActivity extends AppCompatActivity {
         mTabHost.addTab(
                 mTabHost.newTabSpec("maps").setIndicator("Contacts Map", null),
                 MapsFragment.class, null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.sync_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_exit:
+                finish();
+                return true;
+
+            case R.id.action_sync:
+                Toast.makeText(MainActivity.this, "Syncing Contacts..", Toast.LENGTH_SHORT).show();
+                Contacts syncContacts = new Contacts(contactEntries, this);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
